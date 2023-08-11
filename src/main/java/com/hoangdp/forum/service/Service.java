@@ -65,7 +65,7 @@ public class Service<T extends BaseEntity, V> {
         }
     }
 
-    private String getNameTable() {
+    protected String getNameTable() {
         for (Annotation a : entityClass.getAnnotations()) {
             if (a instanceof Table) {
                 return ((Table) a).name();

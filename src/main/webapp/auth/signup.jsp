@@ -15,26 +15,31 @@
         <form action="./signup" method="post">
             <div class="mb-3">
                 <label for="inputUsername" class="form-label">Username / Email address</label>
-                <input type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="inputUsername" name="inputUsername"
+                    aria-describedby="emailHelp" required>
                 <div id="emailHelp" class="form-text">We'll never share your sensitive information with anyone else.
                 </div>
             </div>
             <div class="mb-3">
                 <label for="nickname" class="form-label">Nickname</label>
-                <input type="text" class="form-control" id="inputNickname" aria-describedby="nicknameHelp">
+                <input type="text" class="form-control" id="inputNickname" name="inputNickname"
+                    aria-describedby="nicknameHelp" required>
                 <div id="nicknameHelp" class="form-text">Every one will see this nickname</div>
             </div>
             <div class="mb-3">
                 <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPassword">
+                <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+                <div id="passwordHelp" class="form-text text-danger"></div>
             </div>
             <div class="mb-3">
                 <label for="inputConfirmPassword" class="form-label">Comfirm password</label>
-                <input type="password" class="form-control" id="inputConfirmPassword">
+                <input type="password" class="form-control" id="inputConfirmPassword" required>
+                <div id="confirmPasswordHelp" class="form-text text-danger"></div>
             </div>
             <div class="mb-3">
                 <input type="checkbox" id="checkbox">
-                <span for="checkbox" class="form-label"> Agree to Forum’s Terms of Service and acknowledge that Forum's Privacy Policy applies to you.</span>
+                <span for="checkbox" class="form-label"> Agree to Forum's Terms of Service and acknowledge that Forum's
+                    Privacy Policy applies to you.</span>
             </div>
             <button type="submit" class="btn btn-primary" id="btnSignUp" disabled>Sign up</button>
         </form>
@@ -44,6 +49,7 @@
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.setAttribute('data-bs-theme', 'dark');
             } else {
+                confirmPasswordHelp
                 document.documentElement.setAttribute('data-bs-theme', 'light');
             }
         });
@@ -51,6 +57,20 @@
         document.getElementById('checkbox').onchange = function () {
             document.getElementById('btnSignUp').disabled = !this.checked;
         };
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            const password = document.querySelector('#inputPassword').value;
+            const confirmPassword = document.querySelector('#inputConfirmPassword').value;
+            if (document.getElementById("inputConfirmPassword").value.length < 6) {
+                document.getElementById("passwordHelp").textContent = "Password least 6 characters";
+                event.preventDefault();
+            }
+            if (password !== confirmPassword) {
+                document.getElementById("confirmPasswordHelp").textContent = "Confirm password is not match";
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 

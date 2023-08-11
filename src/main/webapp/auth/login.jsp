@@ -15,16 +15,17 @@
         <form action="./login" method="post">
             <div class="mb-3">
                 <label for="inputUsername" class="form-label">Username / Email address</label>
-                <input type="text" class="form-control"  name="username" id="inputUsername" aria-describedby="emailHelp" required>
+                <input type="text" class="form-control" name="username" id="inputUsername" aria-describedby="emailHelp"
+                    required>
                 <div id="emailHelp" class="form-text">We'll never share your sensitive information with anyone else.
                 </div>
             </div>
             <div class="mb-3">
                 <label for="inputPassword" class="form-label">Password</label>
                 <input type="password" class="form-control" id="inputPassword" name="password" required>
-            </div>            
-            <%=request.getAttribute("msg") == null ? "": request.getAttribute("msg")%>
-            <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <%=request.getAttribute("msg")==null ? "" : request.getAttribute("msg")%>
+                <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
     <script>

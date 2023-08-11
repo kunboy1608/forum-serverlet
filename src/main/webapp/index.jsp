@@ -1,9 +1,16 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<%
-int i=1; 
-int x= 2;
-int a = x +i;
-%>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="/src/main/webapp/js/bootstrap.min.js"></script>
+    <title>Forum</title>
+</head>
 
-<h1><%=a%></h1>
+<body>    
+</body>
+
+</html>
