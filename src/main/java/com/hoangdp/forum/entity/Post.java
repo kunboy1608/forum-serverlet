@@ -3,7 +3,7 @@ package com.hoangdp.forum.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +24,7 @@ public class Post extends BaseEntity {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
     private String title;
