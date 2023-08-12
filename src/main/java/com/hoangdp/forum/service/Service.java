@@ -1,11 +1,13 @@
 package com.hoangdp.forum.service;
 
 import java.lang.annotation.Annotation;
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 
 import com.hoangdp.forum.entity.BaseEntity;
+import com.hoangdp.forum.entity.User;
 import com.hoangdp.forum.utils.HibernateUtils;
 
 import jakarta.persistence.Table;
@@ -27,8 +29,39 @@ public class Service<T extends BaseEntity, V> {
         }
     }
 
-    public T save(T t) {
+    public T create(T t) {
         try (Session s = HibernateUtils.getSessionFactory().openSession()) {
+            // Pre -handle data
+
+            User u = UserService.getInstant().getCurrentUser();
+
+            t.setCreateOn(new Date(System.currentTimeMillis()));
+            t.setCreatedBy(u.getId());
+
+            t.setLastModifiedOn(new Date(System.currentTimeMillis()));
+            t.setLastModifiedBy(u.getId());
+
+            s.beginTransaction();
+            s.persist(t);
+            s.flush();
+            s.getTransaction().commit();
+            return t;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public T update(V id, T t) {
+        try (Session s = HibernateUtils.getSessionFactory().openSession()) {
+            T oldT = findById(id);
+
+            User u = UserService.getInstant().getCurrentUser();
+            t.setCreateOn(oldT.getCreateOn());
+            t.setCreatedBy(oldT.getCreatedBy());
+            t.setLastModifiedBy(u.getLastModifiedBy());
+            t.setLastModifiedOn(u.getLastModifiedOn());
+
             s.beginTransaction();
             s.persist(t);
             s.flush();

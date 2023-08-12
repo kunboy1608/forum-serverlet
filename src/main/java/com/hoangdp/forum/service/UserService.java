@@ -1,5 +1,6 @@
 package com.hoangdp.forum.service;
 
+import java.sql.Date;
 import java.util.UUID;
 
 import org.hibernate.Session;
@@ -15,6 +16,27 @@ public class UserService extends Service<User, UUID> {
 
     private UserService() {
         super(User.class);
+    }
+
+    @Override
+    public User create(User t) {
+        try (Session s = HibernateUtils.getSessionFactory().openSession()) {
+
+            t.setCreateOn(new Date(System.currentTimeMillis()));
+            t.setCreatedBy(null);
+
+            t.setLastModifiedOn(new Date(System.currentTimeMillis()));
+            t.setLastModifiedBy(null);
+
+            s.beginTransaction();
+            s.persist(t);
+            s.flush();
+            s.getTransaction().commit();
+            return t;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static UserService getInstant() {
@@ -57,8 +79,12 @@ public class UserService extends Service<User, UUID> {
 
     public boolean signup(String username, String password, String nickname) {
         // TODO: Implement encode password here
-        return super.save(
+        return this.create(
                 User.builder().username(username).password(password).nickname(nickname).salt("").build()) != null;
+    }
+
+    public User getCurrentUser(){
+        return findAll().get(0);
     }
 
 }
