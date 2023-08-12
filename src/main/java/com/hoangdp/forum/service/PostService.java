@@ -1,5 +1,8 @@
 package com.hoangdp.forum.service;
 
+import java.util.List;
+import java.util.Random;
+
 import com.hoangdp.forum.entity.Post;
 
 public class PostService extends Service<Post, Long> {
@@ -20,5 +23,19 @@ public class PostService extends Service<Post, Long> {
             }
         }
         return instant;
+    }
+
+    @Override
+    public List<Post> findAll() {
+        List<Post> list = super.findAll();
+        int length = list == null ? 0 : list.size();
+        Random rand = new Random();
+
+        for (int i = 0; i < length; i++) {
+            list.get(i).setNumberOfComments(CommentService.getInstant().countByPostId(list.get(i).getId()));
+            list.get(i).setNumberOfHearts(rand.nextLong(10000));
+        }
+
+        return list;
     }
 }

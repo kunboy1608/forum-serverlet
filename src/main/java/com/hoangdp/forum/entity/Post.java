@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
 @Table(name = "posts")
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -37,8 +36,8 @@ public class Post extends BaseEntity {
     private String content;
 
     @Transient
-    private Long comment;
+    private Long numberOfComments;
 
     @Transient
-    private Long heart;    
+    private Long numberOfHearts;
 }
