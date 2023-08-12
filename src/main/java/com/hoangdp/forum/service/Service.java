@@ -1,6 +1,7 @@
 package com.hoangdp.forum.service;
 
 import java.lang.annotation.Annotation;
+import java.util.List;
 
 import org.hibernate.Session;
 
@@ -15,6 +16,15 @@ public class Service<T extends BaseEntity, V> {
 
     public Service(Class<T> entityClass) {
         this.entityClass = entityClass;
+    }
+
+    public List<T> findAll() {
+        try (Session s = HibernateUtils.getSessionFactory().openSession()) {
+            return s.createNativeQuery("select * from " + getNameTable(), entityClass).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public T save(T t) {
