@@ -1,13 +1,16 @@
 package com.hoangdp.forum.entity;
 
 import java.sql.Date;
+import java.util.UUID;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 @Data
+@MappedSuperclass
 public class BaseEntity {
     private Date createOn;
-    private String createdBy;
+    private UUID createdBy;
     private Date lastModifiedOn;
-    private String lastModifiedBy;
+    private UUID lastModifiedBy;
 }

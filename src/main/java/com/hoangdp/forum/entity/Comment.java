@@ -3,21 +3,25 @@ package com.hoangdp.forum.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.InheritanceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @Table(name = "comments")
-@Entity
+@Data
 @EqualsAndHashCode(callSuper = false)
-@Builder
-@NoArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Comment extends BaseEntity {
 
     @Id
