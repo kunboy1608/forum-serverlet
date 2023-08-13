@@ -7,12 +7,12 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 
 @Table(name = "comments")
 @Data
@@ -28,13 +28,13 @@ public class Comment extends BaseEntity {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Post post;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
-    @OneToOne(optional = true)
+    @ManyToOne(optional = true)
     private Comment parent;
 
     private String content;
