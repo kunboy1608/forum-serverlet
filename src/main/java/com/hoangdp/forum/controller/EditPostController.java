@@ -25,12 +25,22 @@ public class EditPostController extends HttpServlet {
         String title = req.getParameter("inputTitle");
         String content = req.getParameter("inputContent");
 
-        if (PostService.getInstant().create(Post.builder().title(title).content(content)
-                .user(UserService.getInstant().getCurrentUser()).build()) != null) {
-            resp.sendRedirect("..");
-            return;
+        if (req.getParameter("id") == null || req.getParameter("id").isBlank()
+                || req.getParameter("id").equals("null")) {
+            System.out.println("Vo day ne");
+            if (PostService.getInstant().create(Post.builder().title(title).content(content)
+                    .user(UserService.getInstant().getCurrentUser()).build()) != null) {
+                resp.sendRedirect("..");
+                return;
+            }
+        } else {
+            if (PostService.getInstant().update(Long.valueOf(req.getParameter("id")),
+                    Post.builder().title(title).content(content)
+                            .user(UserService.getInstant().getCurrentUser()).build()) != null) {
+                resp.sendRedirect("..");
+                return;
+            }
         }
         super.doPost(req, resp);
     }
-
 }
