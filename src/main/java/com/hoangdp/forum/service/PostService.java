@@ -32,8 +32,9 @@ public class PostService extends Service<Post, Long> {
         Random rand = new Random();
 
         for (int i = 0; i < length; i++) {
-            list.get(i).setNumberOfComments(CommentService.getInstant().countByPostId(list.get(i).getId()));
-            list.get(i).setNumberOfHearts(rand.nextLong(10000));
+            Post p = list.get(i);
+            p.setNumberOfComments(CommentService.getInstant().countByPostId(p.getId()));
+            p.setNumberOfHearts(rand.nextLong(10000));
         }
 
         return list;
