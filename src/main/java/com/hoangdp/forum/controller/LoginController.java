@@ -2,11 +2,13 @@ package com.hoangdp.forum.controller;
 
 import java.io.IOException;
 
+import com.hoangdp.forum.security.JwtService;
 import com.hoangdp.forum.service.UserService;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +27,7 @@ public class LoginController extends HttpServlet {
 
         resp.setContentType(ContentType.Text.HTML);
 
-        String username = req.getParameter("username");
+        String username = req.getParameter("username").trim().toLowerCase();
         String password = req.getParameter("password");
 
         Boolean result = UserService.getInstant().login(username, password);
@@ -38,6 +40,14 @@ public class LoginController extends HttpServlet {
                             </div>
                                     """);
         } else if (Boolean.TRUE.equals(result)) {
+
+            JwtService jwtService = new JwtService();
+
+            Cookie cookie = new Cookie("Authorization",
+                    jwtService.generateToken(UserService.getInstant().findByUsername(username)));
+            cookie.setPath("/");
+            cookie.setMaxAge(600);
+            resp.addCookie(cookie);
             resp.sendRedirect("..");
             return;
         } else {

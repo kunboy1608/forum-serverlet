@@ -52,8 +52,8 @@ public class PostController extends HttpServlet {
 
         Post p = PostService.getInstant().findById(postId);
 
-        if (CommentService.getInstant().create(Comment.builder().post(p).content(content)
-                .user(UserService.getInstant().getCurrentUser()).build()) != null) {
+        if (CommentService.getInstant().create(req, Comment.builder().post(p).content(content)
+                .user(UserService.getInstant().getCurrentUser(req)).build()) != null) {
             doGet(req, resp);
             return;
         }

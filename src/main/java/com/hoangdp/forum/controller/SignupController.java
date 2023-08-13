@@ -20,7 +20,7 @@ public class SignupController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("inputUsername");
+        String username = req.getParameter("inputUsername").trim().toLowerCase();
         String password = req.getParameter("inputPassword");
         String nickname = req.getParameter("inputNickname");
 

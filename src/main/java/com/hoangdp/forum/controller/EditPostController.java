@@ -3,6 +3,7 @@ package com.hoangdp.forum.controller;
 import java.io.IOException;
 
 import com.hoangdp.forum.entity.Post;
+import com.hoangdp.forum.entity.User;
 import com.hoangdp.forum.service.PostService;
 import com.hoangdp.forum.service.UserService;
 
@@ -22,21 +23,28 @@ public class EditPostController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        User u = UserService.getInstant().getCurrentUser(req);
+        if (u == null) {
+            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
         String title = req.getParameter("inputTitle");
         String content = req.getParameter("inputContent");
 
         if (req.getParameter("id") == null || req.getParameter("id").isBlank()
                 || req.getParameter("id").equals("null")) {
             System.out.println("Vo day ne");
-            if (PostService.getInstant().create(Post.builder().title(title).content(content)
-                    .user(UserService.getInstant().getCurrentUser()).build()) != null) {
+            if (PostService.getInstant().create(req, Post.builder().title(title).content(content)
+                    .user(u).build()) != null) {
                 resp.sendRedirect("..");
                 return;
             }
         } else {
             if (PostService.getInstant().update(Long.valueOf(req.getParameter("id")),
                     Post.builder().title(title).content(content)
-                            .user(UserService.getInstant().getCurrentUser()).build()) != null) {
+                            .user(u).build(),
+                    req) != null) {
                 resp.sendRedirect("..");
                 return;
             }

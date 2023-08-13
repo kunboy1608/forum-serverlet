@@ -11,6 +11,7 @@ import com.hoangdp.forum.entity.User;
 import com.hoangdp.forum.utils.HibernateUtils;
 
 import jakarta.persistence.Table;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class Service<T extends BaseEntity, V> {
 
@@ -29,11 +30,11 @@ public class Service<T extends BaseEntity, V> {
         }
     }
 
-    public T create(T t) {
+    public T create(HttpServletRequest req, T t) {
         try (Session s = HibernateUtils.getSessionFactory().openSession()) {
             // Pre -handle data
 
-            User u = UserService.getInstant().getCurrentUser();
+            User u = UserService.getInstant().getCurrentUser(req);
 
             t.setCreateOn(new Date(System.currentTimeMillis()));
             t.setCreatedBy(u.getId());
@@ -52,11 +53,11 @@ public class Service<T extends BaseEntity, V> {
         }
     }
 
-    public T update(V id, T t) {
+    public T update(V id, T t, HttpServletRequest req) {
         try (Session s = HibernateUtils.getSessionFactory().openSession()) {
             T oldT = findById(id);
 
-            User u = UserService.getInstant().getCurrentUser();
+            User u = UserService.getInstant().getCurrentUser(req);
             t.setCreateOn(oldT.getCreateOn());
             t.setCreatedBy(oldT.getCreatedBy());
             t.setLastModifiedBy(u.getLastModifiedBy());
