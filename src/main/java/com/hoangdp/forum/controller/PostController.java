@@ -39,6 +39,7 @@ public class PostController extends HttpServlet {
         p.setNumberOfHearts(new Random().nextLong(10000));
 
         req.setAttribute("post", p);
+        req.setAttribute("currentUser", UserService.getInstant().getCurrentUser(req));
 
         req.getRequestDispatcher("post/details.jsp").forward(req, resp);
     }

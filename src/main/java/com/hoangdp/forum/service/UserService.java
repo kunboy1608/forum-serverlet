@@ -85,10 +85,10 @@ public class UserService extends Service<User, UUID> {
         return null;
     }
 
-    public boolean signup(String username, String password, String nickname) {
+    public boolean signup(String username, String password, String nickname, String avatar) {
         // TODO: Implement encode password here
         return this.create(
-                User.builder().username(username).password(password).nickname(nickname).salt("").build()) != null;
+                User.builder().username(username).password(password).nickname(nickname).salt("").avatar(avatar).build()) != null;
     }
 
     public User findByUsername(String username) {

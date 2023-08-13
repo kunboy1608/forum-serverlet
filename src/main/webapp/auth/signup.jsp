@@ -28,6 +28,12 @@
                 <div id="nicknameHelp" class="form-text">Every one will see this nickname</div>
             </div>
             <div class="mb-3">
+                <label for="avatar" class="form-label">Link Avatar</label>
+                <input type="text" class="form-control" id="inputAvatar" name="inputAvatar"
+                    aria-describedby="avatarHelp" required>
+                <div id="avatarHelp" class="form-text">Enter link avatar</div>
+            </div>
+            <div class="mb-3">
                 <label for="inputPassword" class="form-label">Password</label>
                 <input type="password" class="form-control" id="inputPassword" name="inputPassword">
                 <div id="passwordHelp" class="form-text text-danger"></div>

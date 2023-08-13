@@ -16,7 +16,7 @@
         <jsp:include page="../share/nav-bar.jsp" />
 
         <% java.util.List list=(java.util.List) request.getAttribute("list"); int length=list==null ? 0 : list.size();
-            for(int i=0; i < length; i++) { com.hoangdp.forum.entity.Post p=(com.hoangdp.forum.entity.Post) list.get(i);
+            for(int i=length -1; i >=0; i--) { com.hoangdp.forum.entity.Post p=(com.hoangdp.forum.entity.Post) list.get(i);
             %>
 
             <div class="container p-2"></div>
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="col-2">
-                        <img src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
+                        <img src="<%=p.getUser().getAvatar()%>"
                             width="100" alt="avatar" style="border-radius: 90%;">
                         <p class="text-success-emphasis">
                             <%=p.getUser().getNickname()%>

@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="col-2">
-                        <img src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
+                        <img src="<%=p.getUser().getAvatar()%>"
                             width="100" alt="avatar" style="border-radius: 90%;">
                         <p class="text-success-emphasis">
                             <%=p.getUser().getNickname()%>
@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="col-2">
-                            <img src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
+                            <img src="<%=c.getUser().getAvatar()%>"
                                 width="100" alt="avatar" style="border-radius: 90%;">
                             <p class="text-success-emphasis">
                                 <%=c.getUser().getNickname()%>
@@ -78,58 +78,62 @@
 
                 <%}%>
 
-                    <div class="container p-2"></div>
 
-                    <div class="container text-center bg-body-tertiary p-4 rounded-4">
-                        <div class="row">
-                            <div class="col-10 container bg-primary-subtle rounded-4 p-3" style="text-align: right;">
-                                <form action="" method="post">
-                                    <div class="mb-3">
-                                        <label for="inputContent" class="form-label">Leave a comment</label>
-                                        <textarea class="form-control" id="inputContent" name="inputContent" required
-                                            rows="4"></textarea>
-                                    </div>
-                                    <input type="hidden" name="id" value=<%=request.getParameter("id")%>>
-                                    <button type="submit" class="btn btn-primary">Comment</button>
-                                </form>
-                            </div>
+                    <% com.hoangdp.forum.entity.User u=(com.hoangdp.forum.entity.User)
+                        request.getAttribute("currentUser"); if (u!=null){ %>
+                        <div class="container p-2"></div>
 
-                            <div class="col-2">
-                                <img src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
-                                    width="100" alt="avatar" style="border-radius: 90%;">
-                                <p class="text-success-emphasis">
-                                    <%=p.getUser().getNickname()%>
-                                </p>
-                                <p class="text-success-emphasis">
-                                    <%=p.getLastModifiedOn()%>
-                                </p>
+                        <div class="container text-center bg-body-tertiary p-4 rounded-4">
+                            <div class="row">
+                                <div class="col-10 container bg-primary-subtle rounded-4 p-3"
+                                    style="text-align: right;">
+                                    <form action="" method="post">
+                                        <div class="mb-3">
+                                            <label for="inputContent" class="form-label">Leave a comment</label>
+                                            <textarea class="form-control" id="inputContent" name="inputContent"
+                                                required rows="4"></textarea>
+                                        </div>
+                                        <input type="hidden" name="id" value=<%=request.getParameter("id")%>>
+                                        <button type="submit" class="btn btn-primary">Comment</button>
+                                    </form>
+                                </div>
+
+                                <div class="col-2">
+                                    <img src="<%=u.getAvatar()%>" width="100" alt="avatar" style="border-radius: 90%;">
+                                    <p class="text-success-emphasis">
+                                        <%=u.getNickname()%>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <%}else{ %>
+                            <a href="/forum/auth/login">Login</a>/
+                            <a href="/forum/auth/signup">Signup</a>
+                            <%}%>
 
 
 
-                    <script>
-                        window.addEventListener('load', function () {
+                                <script>
+                                    window.addEventListener('load', function () {
 
-                            // Get the theme mode from local storage
-                            var themeMode = localStorage.getItem('themeMode');
+                                        // Get the theme mode from local storage
+                                        var themeMode = localStorage.getItem('themeMode');
 
-                            if (themeMode != null) {
-                                document.documentElement.setAttribute('data-bs-theme', themeMode);
-                                document.getElementById('themeModeSwitch').checked = themeMode == 'dark';
-                                return;
-                            }
+                                        if (themeMode != null) {
+                                            document.documentElement.setAttribute('data-bs-theme', themeMode);
+                                            document.getElementById('themeModeSwitch').checked = themeMode == 'dark';
+                                            return;
+                                        }
 
-                            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                                document.documentElement.setAttribute('data-bs-theme', 'dark');
-                                document.getElementById('themeModeSwitch').checked = true;
-                            } else {
-                                document.documentElement.setAttribute('data-bs-theme', 'light');
-                                document.getElementById('themeModeSwitch').checked = false;
-                            }
-                        });
-                    </script>
+                                        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                                            document.documentElement.setAttribute('data-bs-theme', 'dark');
+                                            document.getElementById('themeModeSwitch').checked = true;
+                                        } else {
+                                            document.documentElement.setAttribute('data-bs-theme', 'light');
+                                            document.getElementById('themeModeSwitch').checked = false;
+                                        }
+                                    });
+                                </script>
     </body>
 
     </html>
