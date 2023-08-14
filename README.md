@@ -42,6 +42,13 @@ A website forum is a place where people can interact with each other online, sha
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Screenshot -->
+## Screenshot
+<img src="images/home.png" width="45%"></img>
+<img src="images/post.png" width="45%"></img>
+<img src="images/signup.png" width="45%"></img>
+<img src="images/login.png" width="45%"></img>
+
 <!-- LICENSE -->
 ## License
 
